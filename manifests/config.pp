@@ -14,7 +14,7 @@ class nginx::config (
 
   file { 'nginx_conf':
     ensure  => $ensure,
-    path    => "${cofig_dir}/nginx.conf",
+    path    => "${config_dir}/nginx.conf",
     mode    => $mode,
     owner   => $owner,
     group   => $group,

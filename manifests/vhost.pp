@@ -11,6 +11,8 @@ define nginx::vhost (
   String $vhost_dir                    = $::nginx::vhost_dir,
 ) {
 
+  $vhost_docroot = "${::nginx::docroot}/${name}"
+
   file { "${vhost_dir}/${priority}-$name.conf":
     ensure  => file,
     content => template("${module_name}/vhost/vhost.conf.erb"),
@@ -19,4 +21,13 @@ define nginx::vhost (
     group   => $group,
     notify  => Service['nginx-service'],
   }
+
+  file { $vhost_docroot:
+    ensure  => directory,
+    mode    => '0755',
+    owner   => $owner,
+    group   => $group,
+
+  }
+
 }
